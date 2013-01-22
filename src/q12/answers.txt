@@ -1,0 +1,7 @@
+(a) Suppose you write a program to keep track of the friends of all the students in your
+class using a HashMap.
+What would you use for the keys?
+What would you use for the values?
+
+HashMap<Student , List<Student>>
+
