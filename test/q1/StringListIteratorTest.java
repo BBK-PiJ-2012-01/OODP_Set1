@@ -37,6 +37,12 @@ public class StringListIteratorTest {
         assertFalse(itr.hasNext());
     }
 
+    @Test(expected = NoSuchElementException.class)
+    public void testHasNoNext() throws Exception {
+        testNext();
+        itr.next();
+    }
+
     @Test
     public void testNext() throws Exception {
         assertEquals("0", itr.next());
@@ -55,7 +61,11 @@ public class StringListIteratorTest {
         }
 
         assertFalse(itr.hasPrevious());
+    }
 
+    @Test(expected = NoSuchElementException.class)
+    public void testHasNoPrev() throws Exception {
+        itr.previous();
     }
 
     @Test
@@ -152,6 +162,45 @@ public class StringListIteratorTest {
     }
 
     @Test
+    public void testRemoveAllElementsForwards() throws Exception {
+        assertEquals("0", itr.next());
+        itr.remove();
+        assertEquals("1", itr.next());
+        itr.remove();
+        assertEquals("2", itr.next());
+        itr.remove();
+    }
+
+    @Test
+    public void testRemoveAllElementsForwardsThenAdd() throws Exception {
+        testRemoveAllElementsForwards();
+        itr.add("z");
+        assertTrue(itr.hasPrevious());
+        assertFalse(itr.hasNext());
+        assertEquals("z", itr.previous());
+    }
+
+    @Test
+    public void testRemoveAllElementsBackwards() throws Exception {
+        testNext();
+        assertEquals("2", itr.previous());
+        itr.remove();
+        assertEquals("1", itr.previous());
+        itr.remove();
+        assertEquals("0", itr.previous());
+        itr.remove();
+    }
+
+    @Test
+    public void testRemoveAllElementsBackwardsThenAdd() throws Exception {
+        testRemoveAllElementsBackwards();
+        itr.add("z");
+        assertTrue(itr.hasPrevious());
+        assertFalse(itr.hasNext());
+        assertEquals("z", itr.previous());
+    }
+
+    @Test
     public void testSetForwards() throws Exception {
         for (char c = 'a'; c <= 'c'; ++c) {
             itr.next();
@@ -237,6 +286,55 @@ public class StringListIteratorTest {
         assertFalse(itr.hasPrevious());
 
         assertEquals(listOf("a", "0", "b", "1", "c", "2", "d"), lst);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testRemoveMoreThanOne() throws Exception {
+        itr.next();
+        itr.next();
+        itr.remove();
+        itr.remove();
+    }
+
+    @Test
+    public void testAddMoreThanOne() throws Exception {
+        itr.add("x");
+        itr.add("y");
+
+        assertEquals("y",itr.previous());
+        assertEquals("x", itr.previous());
+        assertEquals(listOf("x","y","0","1","2"), lst);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAddThenSet() {
+        itr.next();
+        itr.add("x");
+        itr.set("y");
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testAddThenRemove() {
+        itr.next();
+        itr.add("x");
+        itr.remove();
+    }
+
+    @Test
+    public void testRemoveThenAdd() {
+        itr.next();
+        itr.remove();
+        itr.add("x");
+        assertEquals("x", itr.previous());
+        assertEquals(listOf("x","1","2"),lst);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testRemoveThenSet() {
+        itr.next();
+        itr.next();
+        itr.remove();
+        itr.set("y");
     }
 
     private static <T> List<T> listOf(T... contents) {
