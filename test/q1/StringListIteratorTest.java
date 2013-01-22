@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static util.CollectionsUtil.listOf;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public class StringListIteratorTest {
 
     @Before
     public void setUp() throws Exception {
-        lst = new LinkedList<String>(Arrays.asList(new String[]{"0","1","2"}));
+        lst = listOf("0","1","2");
         createIterator();
     }
 
@@ -335,9 +336,5 @@ public class StringListIteratorTest {
         itr.next();
         itr.remove();
         itr.set("y");
-    }
-
-    private static <T> List<T> listOf(T... contents) {
-        return new LinkedList<T>(Arrays.asList(contents));
     }
 }

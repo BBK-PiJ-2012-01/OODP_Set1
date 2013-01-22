@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+import static util.CollectionsUtil.listOf;
+
 /**
  * User: Sam Wright
  * Date: 22/01/2013
@@ -40,9 +42,5 @@ public class FriendTracker {
             }
 
         } while (true);
-    }
-
-    private static <T> List<T> listOf(T... contents) {
-        return new LinkedList<T>(Arrays.asList(contents));
     }
 }

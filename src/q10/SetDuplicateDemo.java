@@ -2,6 +2,8 @@ package q10;
 
 import java.util.*;
 
+import static util.CollectionsUtil.setOf;
+
 /**
  * User: Sam Wright
  * Date: 22/01/2013
@@ -16,7 +18,7 @@ public class SetDuplicateDemo {
         // and add all elements (including duplicates) to set
         for (int i = 1; i < 200; ++i) {
             int element = (int) (Math.abs(Math.random()) * ( i % 20 ));
-            System.out.println(element);
+
             if (!elements.contains(element)) {
                 elements.add(element);
             }
@@ -29,10 +31,8 @@ public class SetDuplicateDemo {
         // Make sure you can't add null twice.
         set.add(null);
         set.add(null);
-        assert setOf(null).equals(set);
-    }
-
-    private static <T> Set<T> setOf(T... contents) {
-        return new HashSet<T>(Arrays.asList(contents));
+        Set<Integer> null_containing_set = new HashSet<Integer>();
+        null_containing_set.add(null);
+        assert null_containing_set.equals(set);
     }
 }
