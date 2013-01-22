@@ -1,0 +1,28 @@
+1. A program that keeps track of bank account information (name, account number,
+   account type, balance)
+
+    HashMap<Account_Number , Account_Data_Object>
+
+    Where Account_Data_Object contains name, account type, balance.
+    A common use case is to transfer money from one account to another (identified
+    by account number) so being able to quickly locate the correct data object is important.
+
+2. A phonebook program that stores your friends' names and phone numbers
+
+    HashMap<Name , List<Phone_Numbers>>
+
+    A common use case is finding the phone numbers of a given friend's name.
+
+3. A program to inventory the contents of your refrigerator
+
+    HashSet<Thing_In_Fridge>
+
+4. A program that stores a list of your favourite fruits
+
+    HashSet<Fruit>
+
+5. A program that stores a list of the favourite fruits of all the students in your class
+
+    HashMap<Student , List<Fruit>>
+
+    I imagine a use case is to find the fruit that a given student likes.
